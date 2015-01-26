@@ -11,17 +11,10 @@
  */
 ?>
 
-<div class="nst-small-post uk-panel uk-panel-box">
+<div class="uk-panel uk-panel-box nst-post-grid-tile nst-post-format-<?= get_post_format(); ?>">
     <article id="post-<?php the_ID(); ?>" <?php post_class(array('uk-article')); ?>>
 
-        <?php
-        if ( is_single() ) {
-            the_title('<h1 class="uk-article-title">', '</h1>');
-        }
-        else {
-            the_title('<h1 class="uk-article-title"><a href="' . esc_url( get_permalink() ) . '" class="uk-link-reset" rel="bookmark">', '</a></h1>');
-        }
-        ?>
+        <?php the_title('<h1 class="uk-article-title"><a href="' . esc_url( get_permalink() ) . '" class="uk-link-reset" rel="bookmark">', '</a></h1>'); ?>
         <p class="uk-article-meta">
             <?php printf(
                 '<span class="nst-author uk-link-reset"><a href="%1$s" rel="author"><i class="uk-icon-user"></i> %2$s</a></span>',
@@ -47,24 +40,5 @@
                 <?php the_tags('<span class="nst-tag-list uk-link-reset"><i class="uk-icon-tag"></i> ', ', ', '</span>'); ?>
             <?php endif; ?>
         </p>
-
-        <?php if ( is_search() ) : ?>
-            <div class="nst-entry-summary">
-                <?php the_excerpt(); ?>
-            </div><!-- .entry-summary -->
-        <?php else : ?>
-            <div class="nst-entry-content">
-                <?php
-                the_content('Continue reading <span class="meta-nav">&rarr;</span>');
-                //            wp_link_pages( array(
-                //                'before'      => '<div class="page-links"><span class="page-links-title">Pages</span>',
-                //                'after'       => '</div>',
-                //                'link_before' => '<span>',
-                //                'link_after'  => '</span>',
-                //            ) );
-                ?>
-            </div><!-- .entry-content -->
-        <?php endif; ?>
-
     </article>
 </div>
