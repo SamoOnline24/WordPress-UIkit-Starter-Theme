@@ -48,8 +48,8 @@ gulp.task('minify', function() {
             'js/**',
             '!js/all.min.js'
         ])
-        .pipe(uglify())
         .pipe(concat('all.min.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('js'));
 });
 

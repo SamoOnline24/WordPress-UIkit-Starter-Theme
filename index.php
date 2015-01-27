@@ -26,7 +26,7 @@ get_template_part('elements/base', 'navigation');
             the_post();
 
             echo '<div>';
-            get_template_part('content-grid', get_post_format());
+            get_template_part('content-grid');
             echo '</div>';
         }
 

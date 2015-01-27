@@ -51,4 +51,24 @@ class ThemeHelpers {
         return implode('', $returner);
     }
 
+    public function getTileBackground($postID)
+    {
+        $args = array(
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image/jpeg',
+            'post_parent' => $postID,
+            'post_status' => null,
+            'numberposts' => 1,
+            'orderby' => 'menu_order'
+        );
+        $attachments = get_posts($args);
+
+        if ($attachments) {
+            return wp_get_attachment_image_src($attachments[0]->ID, 'large')[0];
+        }
+        else {
+            return null;
+        }
+    }
+
 } 

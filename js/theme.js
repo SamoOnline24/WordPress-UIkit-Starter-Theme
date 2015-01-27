@@ -1,6 +1,11 @@
-$(document).ready(function() {
-    console.log($('#thegrid'));
-    $('#thegrid').on('afterupdate', function(e){
-        alert('afterupdate.uk.grid');
+(function($, UI) {
+
+    $(function() {
+        $('#thegrid').on('beforeupdate.uk.grid', function(e, elements) {
+            elements.each(function(i) {
+                $(this).height($(this).width());
+            })
+        });
     });
-});
+
+})(jQuery, UIkit);

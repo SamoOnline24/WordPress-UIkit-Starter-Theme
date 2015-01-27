@@ -1,44 +1,52 @@
 <?php
 /**
- * The template for displaying content in a panel
- *
- * TODOs
- * - Categories: only print if any set
- * - Localize
+ * The template for displaying content in a panel for post-format image
  *
  * @author nstaeger
- * @since 2014-08-31
  */
+
+global $theme;
+$image = $theme->helpers->getTileBackground(get_the_ID());
+
+$icon = '';
+if (get_post_format() == 'image') {
+    $icon = 'image';
+}
+else if (get_post_format() == 'video') {
+    $icon = 'play';
+}
+else if (get_post_format() == 'link') {
+    $icon = 'link';
+}
 ?>
 
-<div class="uk-panel uk-panel-box nst-post-grid-tile nst-post-format-<?= get_post_format(); ?>">
-    <article id="post-<?php the_ID(); ?>" <?php post_class(array('uk-article')); ?>>
+<div class="nst-post-grid-tile nst-post-format-<?= get_post_format(); ?> uk-vertical-align uk-cover-background"
+     style="background-image: url('<?= $image; ?>');">
+    <div class="nst-overlay"></div>
+    <div class="uk-panel uk-panel-box uk-vertical-align-middle uk-text-center uk-width-1-1">
+        <article id="post-<?php the_ID(); ?>" <?php post_class(array('uk-article')); ?>>
 
-        <?php the_title('<h1 class="uk-article-title"><a href="' . esc_url( get_permalink() ) . '" class="uk-link-reset" rel="bookmark">', '</a></h1>'); ?>
-        <p class="uk-article-meta">
-            <?php printf(
-                '<span class="nst-author uk-link-reset"><a href="%1$s" rel="author"><i class="uk-icon-user"></i> %2$s</a></span>',
-                esc_url(get_author_posts_url(get_the_author_meta( 'ID' ))),
-                get_the_author()
-            ); ?>
-            <?php printf(
-                '<span class="nst-entry-time uk-margin-small-left"><i class="uk-icon-clock-o"></i> <time datetime="%1$s">%2$s</time></span>',
-                esc_attr(get_the_date('c')),
-                esc_html(get_the_date())
-            ); ?>
-            <span class="nst-category-list uk-margin-small-left uk-link-reset">
-                <i class="uk-icon-ticket"></i> <?php echo get_the_category_list(', '); ?>
-            </span>
-            <?php if (!post_password_required() && ( comments_open() || get_comments_number() )) : ?>
-                <span class="nst-comments uk-margin-small-left uk-link-reset">
-                    <?php comments_popup_link( '<i class="uk-icon-comment"></i> Leave a comment', '<i class="uk-icon-comment"></i> 1', '<i class="uk-icon-comment"></i> %' ); ?>
-                </span>
-            <?php endif; ?>
-            <?php edit_post_link( '<i class="uk-icon-edit"></i> Edit', '<span class="nst-edit-link uk-margin-small-left uk-link-reset">', '</span>' ); ?>
-            <?php if (is_single()) : ?>
-                <br/ >
-                <?php the_tags('<span class="nst-tag-list uk-link-reset"><i class="uk-icon-tag"></i> ', ', ', '</span>'); ?>
-            <?php endif; ?>
-        </p>
-    </article>
+            <a href="' . esc_url(get_permalink()) . '" class="uk-link-reset"><i class="uk-icon-<?= $icon; ?> uk-icon-large"></i></a>
+
+            <?php the_title('<h1 class="uk-article-title"><a href="' . esc_url(get_permalink()) . '" class="uk-link-reset">', '</a></h1>'); ?>
+
+            <p class="uk-article-meta">
+                <?php printf(
+                    '<span class="nst-author uk-link-reset"><a href="%1$s" rel="author"><i class="uk-icon-user"></i> %2$s</a></span>',
+                    esc_url(get_author_posts_url(get_the_author_meta('ID'))),
+                    get_the_author()
+                ); ?>
+                <?php printf(
+                    '<span class="nst-entry-time uk-margin-small-left"><i class="uk-icon-clock-o"></i> <time datetime="%1$s">%2$s</time></span>',
+                    esc_attr(get_the_date('c')),
+                    esc_html(get_the_date())
+                ); ?>
+                <?php if (!post_password_required() && (comments_open() || get_comments_number())) : ?>
+                    <span class="nst-comments uk-margin-small-left uk-link-reset">
+                            <?php comments_popup_link('<i class="uk-icon-comment"></i> Leave a comment', '<i class="uk-icon-comment"></i> 1', '<i class="uk-icon-comment"></i> %'); ?>
+                        </span>
+                <?php endif; ?>
+            </p>
+        </article>
+    </div>
 </div>
