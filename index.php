@@ -20,7 +20,7 @@ get_template_part('elements/base', 'navigation');
 <?php
     if (have_posts()) {
 
-        echo '<div id="thegrid" class="uk-grid-width-medium-1-3  uk-grid-width-small-1-2" data-uk-grid="{gutter: 20}">';
+        echo '<div class="uk-grid uk-grid-small uk-grid-width-medium-1-3  uk-grid-width-small-1-2" data-uk-grid-margin>';
 
         while (have_posts()) {
             the_post();

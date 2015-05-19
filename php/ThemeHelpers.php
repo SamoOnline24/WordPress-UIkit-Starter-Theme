@@ -64,7 +64,7 @@ class ThemeHelpers {
         $attachments = get_posts($args);
 
         if ($attachments) {
-            return wp_get_attachment_image_src($attachments[0]->ID, 'large')[0];
+            return wp_get_attachment_image_src($attachments[0]->ID, 'medium')[0];
         }
         else {
             return null;

@@ -9,19 +9,20 @@ global $theme;
 $image = $theme->helpers->getTileBackground(get_the_ID());
 
 $icon = '';
-if (get_post_format() == 'image') {
-    $icon = 'image';
-}
-else if (get_post_format() == 'video') {
-    $icon = 'play';
-}
-else if (get_post_format() == 'link') {
-    $icon = 'link';
+switch (get_post_format()) {
+    case 'image':
+        $icon = 'image';
+        break;
+    case 'video':
+        $icon = 'play';
+        break;
+    case 'link':
+        $icon = 'link';
+        break;
 }
 ?>
 
-<div class="nst-post-grid-tile nst-post-format-<?= get_post_format(); ?> uk-vertical-align uk-cover-background"
-     style="background-image: url('<?= $image; ?>');">
+<div class="nst-post-grid-tile nst-post-format-<?= get_post_format(); ?> uk-vertical-align uk-cover-background" style="background-image: url('<?= $image; ?>');">
     <div class="nst-overlay"></div>
     <div class="uk-panel uk-panel-box uk-vertical-align-middle uk-text-center uk-width-1-1">
         <article id="post-<?php the_ID(); ?>" <?php post_class(array('uk-article')); ?>>
@@ -43,8 +44,8 @@ else if (get_post_format() == 'link') {
                 ); ?>
                 <?php if (!post_password_required() && (comments_open() || get_comments_number())) : ?>
                     <span class="nst-comments uk-margin-small-left uk-link-reset">
-                            <?php comments_popup_link('<i class="uk-icon-comment"></i> Leave a comment', '<i class="uk-icon-comment"></i> 1', '<i class="uk-icon-comment"></i> %'); ?>
-                        </span>
+                        <?php comments_popup_link('<i class="uk-icon-comment"></i> Leave a comment', '<i class="uk-icon-comment"></i> 1', '<i class="uk-icon-comment"></i> %'); ?>
+                    </span>
                 <?php endif; ?>
             </p>
         </article>
